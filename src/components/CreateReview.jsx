@@ -27,6 +27,7 @@ export default function CreateReview(props) {
         } else {
             Axios.put('/api/review/' + props.entryId, {
                 _id: review._id,
+                userName: review.userName,
                 content: content,
             })
                 .then(res => {

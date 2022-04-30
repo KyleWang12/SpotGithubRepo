@@ -185,7 +185,7 @@ export default function RepoEntry(props) {
                 })}
             </Container>
             <CreateReview show={showCreateReview} handleClose={() => setShowCreateReview(false)} entryId={params.repoId} reviewsCNT={reviewsCNT} updateReviews={setReivewsCNT} userName={userName} title='Create' />
-            <CreateReview show={showEditReview} handleClose={() => setShowEditReview(false)} entryId={params.repoId} review={review} reviewChanged={reviewChanged} updateReviews={setReviewChanged} userName={userName} title='Edit' />
+            <CreateReview show={showEditReview} handleClose={() => setShowEditReview(false)} entryId={params.repoId} review={review} reviewChanged={reviewChanged} updateReviews={setReviewChanged} title='Edit' />
             <CreateEntry show={showCreateEntry} handleClose={() => setShowCreateEntry(false)} userName={userName} title='Edit' entry={editEntry} updateEntry={setEntry} />
         </Container>
     )
