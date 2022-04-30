@@ -10,7 +10,8 @@ const entryRoute = require('./routes/entry');
 const reviewRoute = require('./routes/review');
 const userRoute = require('./routes/user');
 
-const mongooseEnpoint = 'mongodb+srv://wyh:00OKXKABa0SKteLJ@githubrepo.xkhz8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+// const mongooseEnpoint = 'mongodb+srv://wyh:00OKXKABa0SKteLJ@githubrepo.xkhz8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const mongooseEnpoint = process.env.MONGODB_URL || 'mongodb://192.168.1.9/review_app';
 mongoose.connect(mongooseEnpoint, { useNewUrlParser: true });
 const db = mongoose.connection;
 
