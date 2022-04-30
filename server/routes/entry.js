@@ -1,5 +1,6 @@
 const express = require('express');
-const EntryModel = require('./model/entry.model')
+const EntryModel = require('./model/entry.model');
+const auth_middleware = require('./middleware/auth_middleware');
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.get('/:entryId', (req, res) => {
         .catch(error => res.status(400).send(error))
 })
 
-router.put('/:entryId', (req, res) => {
+router.put('/:entryId', auth_middleware, (req, res) => {
     const entry = req.body;
     entry.id = req.params.entryId;
     return EntryModel.updateEntry(entry)
@@ -27,14 +28,14 @@ router.put('/:entryId', (req, res) => {
         .catch(error => res.status(400).send(error))
 })
 
-router.delete('/:entryId', (req, res) => {
+router.delete('/:entryId', auth_middleware, (req, res) => {
     const entryId = req.params.entryId;
     return EntryModel.deleteEntry(entryId)
         .then(entry => res.status(200).send(entry))
         .catch(error => res.status(400).send(error))
 })
 
-router.post('/', (req, res) => {
+router.post('/', auth_middleware, (req, res) => {
     const entry = req.body;
 
     return EntryModel.createEntry(entry)

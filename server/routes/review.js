@@ -1,9 +1,10 @@
 const express = require('express');
-const EntryModel = require('./model/entry.model')
+const EntryModel = require('./model/entry.model');
+const auth_middleware = require('./middleware/auth_middleware');
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', auth_middleware, (req, res) => {
     const id = req.body.id;
     const userName = req.body.userName;
     const content = req.body.content;
@@ -19,15 +20,18 @@ router.post('/', (req, res) => {
 
 })
 
-router.put('/:entryId', (req, res) => {
+router.put('/:entryId', auth_middleware, (req, res) => {
     const review = req.body;
     const entryId = req.params.entryId;
+    if(req.userName!==review.userName){
+        return res.status(401).send("Unauthorized user");
+    }
     return EntryModel.updateReview(entryId, review)
         .then(review => res.status(200).send(review))
         .catch(error => res.status(400).send(error))
 })
 
-router.delete('/:entryId/:reviewId', (req, res) => {
+router.delete('/:entryId/:reviewId', auth_middleware, (req, res) => {
     const entryId = req.params.entryId;
     const reviewId = req.params.reviewId;
     return EntryModel.deleteReview(entryId, reviewId)
