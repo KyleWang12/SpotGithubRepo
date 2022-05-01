@@ -47,7 +47,8 @@ function deleteReview(entryId, reviewId){
                 reviews: {
                     _id: reviewId,
                 }
-            }
+            },
+            $inc: { reviewCount: -1 },
         }
     ).exec();
 }
